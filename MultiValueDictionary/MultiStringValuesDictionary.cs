@@ -17,7 +17,7 @@ namespace MultiValueDictionary
         }
 
         /// <summary>
-        /// returns all keys from the dictionary
+        /// gets all keys from the dictionary
         /// </summary>
         public IEnumerable<string> Keys => _dictionary.Keys;
 
