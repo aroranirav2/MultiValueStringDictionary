@@ -31,7 +31,7 @@ namespace MultiValueDictionary
         {
             if (KeyExists(key))
             {
-                if (_dictionary[key].Contains(member))
+                if (MemberExists(key, member))
                     throw new ArgumentException($") ERROR, member: {member} already exists for key.");
 
                 _dictionary[key].Add(member);
@@ -66,7 +66,7 @@ namespace MultiValueDictionary
             if (!KeyExists(key))
                 throw new KeyNotFoundException(KeyNotFoundMessage(key));
 
-            if (!_dictionary[key].Contains(member))
+            if (!MemberExists(key, member))
                 throw new ArgumentException($") Error, Member: {member} does not exist.");
 
             if (_dictionary[key].Count == 1)
