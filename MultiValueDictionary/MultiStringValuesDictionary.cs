@@ -19,20 +19,20 @@ namespace MultiValueDictionary
         /// <summary>
         /// returns all keys from the dictionary
         /// </summary>
-        public IEnumerable<string> Keys => _dictionary.Keys;
+        public ICollection<string> Keys => _dictionary.Keys;
 
         /// <summary>
         /// Adds key value pair to the dictionary
         /// </summary>
         /// <param name="key"></param>
         /// <param name="member"></param>
-        /// <exception cref="ArgumentException"></exception>
+        /// <exception cref="InvalidOperationException"></exception>
         public void Add(string key, string member)
         {
             if (KeyExists(key))
             {
                 if (MemberExists(key, member))
-                    throw new ArgumentException($") ERROR, member: {member} already exists for key.");
+                    throw new InvalidOperationException($") ERROR, member: {member} already exists for key.");
 
                 _dictionary[key].Add(member);
             }

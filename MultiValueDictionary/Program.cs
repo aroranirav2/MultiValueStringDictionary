@@ -95,6 +95,10 @@ namespace MultiValueDictionary
                     {
                         Console.WriteLine(ex.Message);
                     }
+                    catch (InvalidOperationException ex)
+                    {
+                        Console.Write(ex.Message);
+                    }
                     catch
                     {
                         Console.WriteLine("Invalid command.");
