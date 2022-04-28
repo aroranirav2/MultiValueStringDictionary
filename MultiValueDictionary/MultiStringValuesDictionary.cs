@@ -9,15 +9,15 @@ namespace MultiValueDictionary
     /// </summary>
     public class MultiStringValuesDictionary
     {
-        private readonly Dictionary<string, List<string>> _dictionary;
+        private readonly Dictionary<string, HashSet<string>> _dictionary;
 
         public MultiStringValuesDictionary()
         {
-            _dictionary = new Dictionary<string, List<string>>();
+            _dictionary = new Dictionary<string, HashSet<string>>();
         }
 
         /// <summary>
-        /// returns all keys from the dictionary
+        /// gets all keys from the dictionary
         /// </summary>
         public ICollection<string> Keys => _dictionary.Keys;
 
@@ -37,7 +37,7 @@ namespace MultiValueDictionary
                 _dictionary[key].Add(member);
             }
             else
-                _dictionary.Add(key, new List<string> { member });
+                _dictionary.Add(key, new HashSet<string> { member });
         }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace MultiValueDictionary
         /// <param name="key"></param>
         /// <exception cref="KeyNotFoundException"></exception>
         /// <returns>List of members for the key</returns>
-        public List<string> Members(string key)
+        public HashSet<string> Members(string key)
         {
             if (!KeyExists(key))
                 throw new KeyNotFoundException(KeyNotFoundMessage(key));
@@ -118,10 +118,10 @@ namespace MultiValueDictionary
         /// returns all the members inside the dictionary
         /// </summary>
         /// <returns>all members for each key</returns>
-        public List<List<string>> AllMembers()
+        public List<HashSet<string>> AllMembers()
         {
             if (!_dictionary.Any())
-                return new List<List<string>>();
+                return new List<HashSet<string>>();
             return _dictionary.Values.ToList();
         }
 
