@@ -97,7 +97,7 @@ namespace MultiValueDictionary
                     }
                     catch (InvalidOperationException ex)
                     {
-                        Console.Write(ex.Message);
+                        Console.WriteLine(ex.Message);
                     }
                     catch
                     {
