@@ -239,7 +239,33 @@ namespace MultiValueDictionary.Tests
             _dictionary.Clear();
 
             Assert.False(_dictionary.Items().Any());
-
+        }
+        [Fact]
+        public void Key_Exists_Should_Return_True()
+        {
+            _dictionary.Add("foo", "bar");
+            Assert.True(_dictionary.KeyExists("foo"));
+        }
+        [Fact]
+        public void Key_Exists_Should_Return_False()
+        {
+            _dictionary.Add("foo", "bar");
+            Assert.False(_dictionary.KeyExists("bar"));
+        }
+        [Fact]
+        public void Member_Exists_Should_Return_True()
+        {
+            _dictionary.Add("foo", "bar");
+            Assert.True(_dictionary.MemberExists("foo", "bar"));
+        }
+        [Fact]
+        public void Member_Exists_Should_Return_False()
+        {
+            _dictionary.Add("foo", "bar");
+            _dictionary.Add("bang", "baz");
+            Assert.False(_dictionary.MemberExists("bang", "bar"));
+            Assert.False(_dictionary.MemberExists("foo", "baz"));
+            Assert.False(_dictionary.MemberExists("abc", "def"));
         }
     }
 }
