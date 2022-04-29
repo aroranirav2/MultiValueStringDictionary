@@ -188,5 +188,58 @@ namespace MultiValueDictionary.Tests
                     member => Assert.Contains("bam", member))
                 );
         }
+        [Fact]
+        public void Items_Should_Return_All_Keys_And_Members()
+        {
+            _dictionary.Add("foo", "bar");
+            _dictionary.Add("foo", "baz");
+            Assert.Collection(_dictionary.Items(),
+                item =>
+                {
+                    Assert.True(item.Item1 == "foo");
+                    Assert.True(item.Item2 == "bar");
+                },
+                item =>
+                {
+                    Assert.True(item.Item1 == "foo");
+                    Assert.True(item.Item2 == "baz");
+                });
+            _dictionary.Add("bang", "bar");
+            _dictionary.Add("bang", "bam");
+            Assert.Collection(_dictionary.Items(),
+                item =>
+                {
+                    Assert.True(item.Item1 == "foo");
+                    Assert.True(item.Item2 == "bar");
+                },
+                item =>
+                {
+                    Assert.True(item.Item1 == "foo");
+                    Assert.True(item.Item2 == "baz");
+                },
+                item =>
+                {
+                    Assert.True(item.Item1 == "bang");
+                    Assert.True(item.Item2 == "bar");
+                },
+                item =>
+                {
+                    Assert.True(item.Item1 == "bang");
+                    Assert.True(item.Item2 == "bam");
+                });
+        }
+        [Fact]
+        public void Items_Should_Return_Empty_List()
+        {
+            _dictionary.Add("foo", "bar");
+            _dictionary.Add("foo", "baz");
+
+            Assert.True(_dictionary.Items().Any());
+
+            _dictionary.Clear();
+
+            Assert.False(_dictionary.Items().Any());
+
+        }
     }
 }
