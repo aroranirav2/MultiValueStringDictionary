@@ -162,5 +162,31 @@ namespace MultiValueDictionary.Tests
             Assert.False(allMembers.Any());
             Assert.False(_dictionary.Keys.Any());
         }
+        [Fact]
+        public void All_Member_Should_Return_Empty_List()
+        {
+            var allMembers = _dictionary.AllMembers();
+            Assert.Empty(allMembers);
+        }
+        [Fact]
+        public void All_Member_Should_Return_Members_Of_All_Keys()
+        {
+            _dictionary.Add("foo", "bar");
+            _dictionary.Add("foo", "baz");
+            Assert.Collection(_dictionary.AllMembers(),
+                item => Assert.Collection(item,
+                    member => Assert.Contains("bar", member),
+                    member => Assert.Contains("baz", member))
+                );
+            _dictionary.Add("bang", "bam");
+            Assert.Collection(_dictionary.AllMembers(),
+                item => Assert.Collection(item,
+                    member => Assert.Contains("bar", member),
+                    member => Assert.Contains("baz", member)
+                    ),
+                item => Assert.Collection(item,
+                    member => Assert.Contains("bam", member))
+                );
+        }
     }
 }
